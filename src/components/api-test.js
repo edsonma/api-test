@@ -5,7 +5,7 @@ import Datetime from 'react-datetime';
 import Message from './message';
 import moment from 'moment';
 
-import './component-one.css';
+import './api-test.css';
 import './react-datetime.css';
 
 class ApiTest extends Component {
@@ -23,11 +23,15 @@ class ApiTest extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
+    fetch("http://api:4567/api/v1/outcrops")
+      .then(response => response.json())
+      .then(data => this.setState({ outcrops: data }));
+
     this.setState({
       message: 'submitted query!'
     });
 
-    alert('submitted query!');
+    alert(this.state.outcrops);
   }
 
   renderForm() {
@@ -61,6 +65,9 @@ class ApiTest extends Component {
           </FormGroup>
         </Col>
         </Row>
+
+          {this.state.outcrops}
+
       </Grid>
     </form>
     </div>
